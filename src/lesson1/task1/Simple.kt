@@ -4,6 +4,7 @@ package lesson1.task1
 
 import kotlin.math.*
 
+
 /**
  * Пример
  *
@@ -51,17 +52,22 @@ fun quadraticRootProduct(a: Double, b: Double, c: Double): Double {
 fun main(args: Array<String>) {
 	val x1x2 = quadraticRootProduct(1.0, 13.0, 42.0)
 	val sec = seconds(8, 0, 0)
-	//println("Seconds: ${args[1]}")
 	val len = lengthInMeters(8, 2,11)
 	val rad = angleInRadian(36, 14, 35)
 	val track = trackLength(3.0, 0.0, 0.0, 4.0)
 	val third = thirdDigit(3801)
+	val travel = travelMinutes(9, 25, 13, 1)
+	val aInTY = accountInThreeYears(100, 10)
+	val num = numberRevert(478)
 	println("Root product: $x1x2")
 	println("Seconds: $sec")
 	println("Length in Meters: %.2f".format(len))
 	println("angle In Radian: %.5f".format(rad))
 	println("track lenght: $track")
 	println("Third digit: $third")
+	println("Travel minutes: $travel")
+	println("Account in three years: %.2f".format(aInTY))
+	println("Number revert: $num")
 }
 
 /**
@@ -110,123 +116,21 @@ fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double =
  * Пользователь задает целое число, большее 100 (например, 3801).
  * Определить третью цифру справа в этом числе (в данном случае 8).
  */
-fun thirdDigit(number: Int): Int = 1
+fun thirdDigit(number: Int): Int = (number / 100) % 10
 
-/**package lesson1.task1
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
-import kotlin.math.PI
-
-class Tests {
-    @Test
-    @Tag("Example")
-    fun sqr() {
-        assertEquals(0, sqr(0))
-        assertEquals(4, sqr(2))
-        assertEquals(9, sqr(-3))
-    }
-
-    @Test
-    @Tag("Example")
-    fun sqrDouble() {
-        assertEquals(0.0, sqr(0.0), 1e-13)
-        assertEquals(4.0, sqr(2.0), 1e-13)
-        assertEquals(9.0, sqr(-3.0), 1e-13)
-    }
-
-    @Test
-    @Tag("Example")
-    fun discriminant() {
-        assertEquals(0.0, discriminant(0.0, 0.0, 0.0), 1e-13)
-        assertEquals(0.0, discriminant(1.0, -2.0, 1.0), 1e-13)
-        assertEquals(1.0, discriminant(1.0, 3.0, 2.0), 1e-13)
-    }
-
-    @Test
-    @Tag("Example")
-    fun quadraticEquationRoot() {
-        assertEquals(2.0, quadraticEquationRoot(1.0, -3.0, 2.0), 1e-13)
-        assertEquals(1.0, quadraticEquationRoot(1.0, -2.0, 1.0), 1e-13)
-        assertEquals(-3.0, quadraticEquationRoot(1.0, 6.0, 9.0), 1e-13)
-    }
-
-    @Test
-    @Tag("Example")
-    fun quadraticRootProduct() {
-        assertEquals(1.0, quadraticRootProduct(1.0, -2.0, 1.0), 1e-13)
-        assertEquals(9.0, quadraticRootProduct(1.0, 6.0, 9.0), 1e-13)
-        assertEquals(2.0, quadraticRootProduct(1.0, 3.0, 2.0), 1e-13)
-    }
-
-    @Test
-    @Tag("Trivial")
-    fun seconds() {
-        assertEquals(30035, seconds(8, 20, 35))
-        assertEquals(86400, seconds(24, 0, 0))
-        assertEquals(13, seconds(0, 0, 13))
-    }
-
-    @Test
-    @Tag("Trivial")
-    fun lengthInMeters() {
-        assertEquals(18.98, lengthInMeters(8, 2, 11), 1e-2)
-        assertEquals(2.13, lengthInMeters(1, 0, 0), 1e-2)
-    }
-
-    @Test
-    @Tag("Trivial")
-    fun angleInRadian() {
-        assertEquals(0.63256, angleInRadian(36, 14, 35), 1e-5)
-        assertEquals(PI / 2.0, angleInRadian(90, 0, 0), 1e-5)
-    }
-
-    @Test
-    @Tag("Trivial")
-    fun trackLength() {
-        assertEquals(5.0, trackLength(3.0, 0.0, 0.0, 4.0), 1e-5)
-        assertEquals(1.0, trackLength(0.0, 1.0, -1.0, 1.0), 1e-5)
-        assertEquals(1.41, trackLength(1.0, 1.0, 2.0, 2.0), 1e-2)
-    }
-
-    @Test
-    @Tag("Easy")
-    fun thirdDigit() {
-        assertEquals(8, thirdDigit(3801))
-        assertEquals(1, thirdDigit(100))
-        assertEquals(0, thirdDigit(1000))
-    }
-
-    @Test
-    @Tag("Easy")
-    fun travelMinutes() {
-        assertEquals(216, travelMinutes(9, 25, 13, 1))
-        assertEquals(1, travelMinutes(21, 59, 22, 0))
-    }
-
-    @Test
-    @Tag("Easy")
-    fun accountInThreeYears() {
-        assertEquals(133.1, accountInThreeYears(100, 10), 1e-2)
-        assertEquals(1.0, accountInThreeYears(1, 0), 1e-2)
-        assertEquals(104.0, accountInThreeYears(13, 100), 1e-2)
-    }
-
-    @Test
-    @Tag("Easy")
-    fun numberRevert() {
-        assertEquals(874, numberRevert(478))
-        assertEquals(201, numberRevert(102))
-    }
-}
+/**
  * Простая
  *
  * Поезд вышел со станции отправления в h1 часов m1 минут (например в 9:25) и
  * прибыл на станцию назначения в h2 часов m2 минут того же дня (например в 13:01).
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
-fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int = TODO()
+fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
+	val dep = hoursDepart * 60 + minutesDepart
+	val arr = hoursArrive * 60 + minutesArrive
+	return arr - dep
+}
 
 /**
  * Простая
@@ -235,7 +139,9 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
+
+fun accountInThreeYears(initial: Int, percent: Int): Double =
+	initial * (1.0 + percent / 100.0).pow(3.0)
 
 /**
  * Простая
@@ -243,4 +149,8 @@ fun accountInThreeYears(initial: Int, percent: Int): Double = TODO()
  * Пользователь задает целое трехзначное число (например, 478).
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
-fun numberRevert(number: Int): Int = TODO()
+fun numberRevert(number: Int): Int {
+	var rev: Int = (number % 10) * 100
+	rev += ((number / 10) % 10) * 10
+	return rev + (number / 100)
+}
