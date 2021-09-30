@@ -3,8 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
-import kotlin.math.max
-import kotlin.math.sqrt
+import kotlin.math.*
 
 /**
  * Пример
@@ -63,7 +62,15 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String {
+	return if (age < 0 || age > 200)
+		return "Столько люди не живут"
+	else if (age != 11 && age != 111 && age % 10 == 1)
+		"$age год"
+	else if ((age < 5 || age > 20) && age % 10 in 2..4)
+		"$age года"
+	else "$age лет"
+}
 
 /**
  * Простая
@@ -73,10 +80,30 @@ fun ageDescription(age: Int): String = TODO()
  * Определить, за какое время он одолел первую половину пути?
  */
 fun timeForHalfWay(
-    t1: Double, v1: Double,
-    t2: Double, v2: Double,
-    t3: Double, v3: Double
-): Double = TODO()
+	t1: Double, v1: Double,
+	t2: Double, v2: Double,
+	t3: Double, v3: Double
+): Double {
+	val firstDist = t1 * v1
+	val secondDist = t2 * v2
+	val thirdDist = t3 * v3
+	val dist = firstDist + secondDist + thirdDist
+	val time = t1 + t2 + t3
+	var averageV: Double
+	if ((dist / 2) <= firstDist) {
+		if ((dist / 2) == firstDist)
+			return t1
+		return (dist / 2) / v1
+	} else if ((dist / 2) <= (firstDist + secondDist)) {
+		if ((dist / 2) == (firstDist + secondDist))
+			return t1 + t2
+		averageV = (firstDist + secondDist) / (t1 + t2)
+		return ((firstDist + secondDist) - ((firstDist + secondDist) - (dist / 2))) / averageV
+	} else {
+		averageV = dist / time
+		return (dist / 2) / averageV
+	}
+}
 
 /**
  * Простая
@@ -88,10 +115,15 @@ fun timeForHalfWay(
  * Считать, что ладьи не могут загораживать друг друга
  */
 fun whichRookThreatens(
-    kingX: Int, kingY: Int,
-    rookX1: Int, rookY1: Int,
-    rookX2: Int, rookY2: Int
-): Int = TODO()
+	kingX: Int, kingY: Int,
+	rookX1: Int, rookY1: Int,
+	rookX2: Int, rookY2: Int
+): Int = when {
+	(kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
+	(kingX == rookX1 || kingY == rookY1) -> 1
+	(kingX == rookX2 || kingY == rookY2) -> 2
+	else -> 0
+}
 
 /**
  * Простая
@@ -104,10 +136,20 @@ fun whichRookThreatens(
  * Считать, что ладья и слон не могут загораживать друг друга.
  */
 fun rookOrBishopThreatens(
-    kingX: Int, kingY: Int,
-    rookX: Int, rookY: Int,
-    bishopX: Int, bishopY: Int
-): Int = TODO()
+	kingX: Int, kingY: Int,
+	rookX: Int, rookY: Int,
+	bishopX: Int, bishopY: Int
+): Int {
+	val i = when {
+		((kingX == rookX) || (kingY == rookY)) &&
+				(((kingX + kingY) == (bishopX + bishopY)) || ((kingX - kingY) == (bishopX - bishopY))) -> 3
+		(kingX == rookX || kingY == rookY) -> 1
+		(kingX + kingY == bishopX + bishopY) || (kingX - kingY == bishopX - bishopY) -> 2
+		else -> 0
+	}
+	return i
+}
+
 
 /**
  * Простая
@@ -117,7 +159,18 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+//fun triangleKind(a: Double, b: Double, c: Double): Int {
+//	val aTriangle = (a.pow(2.0) + c.pow(2.0) - b.pow(2.0)) / (2 * a * c)
+//	val bTriangle = (a.pow(2.0) + b.pow(2.0) - c.pow(2.0)) / (2 * a * b)
+//	val cTriangle = (b.pow(2.0) + c.pow(2.0) - a.pow(2.0)) / (2 * c * b)
+//	println(acos(aTriangle))
+//	val i = when {
+//		(aTriangle in 90.0..180.0 || bTriangle in 90.0..180.0 || cTriangle in 90.0..180.0) -> 2
+//		a.pow(2.0) == b.pow(2.0) + c.pow(2.0) -> 1
+//		else -> 11
+//	}
+//	return i
+//}
 
 /**
  * Средняя
@@ -128,3 +181,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+
+
+fun main()
+{
+	println(ageDescription(10))
+	//println(triangleKind(5.0, 3.0, 4.0))
+	//println(triangleKind(4.0, 6.0, 8.0))
+}
