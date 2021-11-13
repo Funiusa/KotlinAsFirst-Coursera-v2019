@@ -3,6 +3,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import lesson10.task1.parseExpr
 
 /**
  * Пример
@@ -10,7 +11,7 @@ import lesson1.task1.sqr
  * Лежит ли точка (x, y) внутри окружности с центром в (x0, y0) и радиусом r?
  */
 fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
-    sqr(x - x0) + sqr(y - y0) <= sqr(r)
+	sqr(x - x0) + sqr(y - y0) <= sqr(r)
 
 /**
  * Простая
@@ -18,7 +19,11 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean = TODO()
+fun isNumberHappy(number: Int): Boolean {
+	val first = number / 100
+	val second = number % 100
+	return ((first / 10) + (first % 10) == (second / 10) + (second % 10))
+}
 
 /**
  * Простая
@@ -36,7 +41,25 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int = TODO()
+fun daysInMonth(month: Int, year: Int): Int {
+	if (month == 2) {
+		return if (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0))
+			28
+		else
+			29
+	}
+	return if (month < 8) {
+		if (month % 2 != 0)
+			31
+		else
+			30
+	} else {
+		if (month % 2 == 0)
+			31
+		else
+			30
+	}
+}
 
 /**
  * Средняя
@@ -46,8 +69,8 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
  * Вернуть true, если утверждение верно
  */
 fun circleInside(
-    x1: Double, y1: Double, r1: Double,
-    x2: Double, y2: Double, r2: Double
+	x1: Double, y1: Double, r1: Double,
+	x2: Double, y2: Double, r2: Double
 ): Boolean = TODO()
 
 /**
@@ -60,3 +83,14 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+
+fun main() {
+	println(daysInMonth(2, 1100))
+	println(daysInMonth(2, 1600))
+	println(daysInMonth(7, 1700))
+	println(daysInMonth(8, 1700))
+	println(daysInMonth(1, 1800))
+	println(daysInMonth(12, 1900))
+	println(daysInMonth(4, 1100))
+
+}

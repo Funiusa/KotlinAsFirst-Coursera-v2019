@@ -89,7 +89,7 @@ fun timeForHalfWay(
 	val thirdDist = t3 * v3
 	val dist = firstDist + secondDist + thirdDist
 	val time = t1 + t2 + t3
-	var averageV: Double
+	val averageV: Double
 	if ((dist / 2) <= firstDist) {
 		if ((dist / 2) == firstDist)
 			return t1
@@ -159,18 +159,18 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-//fun triangleKind(a: Double, b: Double, c: Double): Int {
-//	val aTriangle = (a.pow(2.0) + c.pow(2.0) - b.pow(2.0)) / (2 * a * c)
-//	val bTriangle = (a.pow(2.0) + b.pow(2.0) - c.pow(2.0)) / (2 * a * b)
-//	val cTriangle = (b.pow(2.0) + c.pow(2.0) - a.pow(2.0)) / (2 * c * b)
-//	println(acos(aTriangle))
-//	val i = when {
-//		(aTriangle in 90.0..180.0 || bTriangle in 90.0..180.0 || cTriangle in 90.0..180.0) -> 2
-//		a.pow(2.0) == b.pow(2.0) + c.pow(2.0) -> 1
-//		else -> 11
-//	}
-//	return i
-//}
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+	val aTriangle = (a.pow(2.0) + c.pow(2.0) - b.pow(2.0)) / (2 * a * c)
+	val bTriangle = (a.pow(2.0) + b.pow(2.0) - c.pow(2.0)) / (2 * a * b)
+	val cTriangle = (b.pow(2.0) + c.pow(2.0) - a.pow(2.0)) / (2 * c * b)
+	println(acos(aTriangle))
+	val i = when {
+		(aTriangle in 90.0..180.0 || bTriangle in 90.0..180.0 || cTriangle in 90.0..180.0) -> 2
+		a.pow(2.0) == b.pow(2.0) + c.pow(2.0) -> 1
+		else -> 11
+	}
+	return i
+}
 
 /**
  * Средняя
@@ -186,6 +186,6 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
 fun main()
 {
 	println(ageDescription(10))
-	//println(triangleKind(5.0, 3.0, 4.0))
-	//println(triangleKind(4.0, 6.0, 8.0))
+	println(triangleKind(5.0, 3.0, 4.0))
+	println(triangleKind(4.0, 6.0, 8.0))
 }
