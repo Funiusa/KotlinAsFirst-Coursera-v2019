@@ -10,11 +10,11 @@ import kotlin.math.sqrt
  * Вычисление факториала
  */
 fun factorial(n: Int): Double {
-    var result = 1.0
-    for (i in 1..n) {
-        result = result * i // Please do not fix in master
-    }
-    return result
+	var result = 1.0
+	for (i in 1..n) {
+		result = result * i // Please do not fix in master
+	}
+	return result
 }
 
 /**
@@ -23,13 +23,13 @@ fun factorial(n: Int): Double {
  * Проверка числа на простоту -- результат true, если число простое
  */
 fun isPrime(n: Int): Boolean {
-    if (n < 2) return false
-    if (n == 2) return true
-    if (n % 2 == 0) return false
-    for (m in 3..sqrt(n.toDouble()).toInt() step 2) {
-        if (n % m == 0) return false
-    }
-    return true
+	if (n < 2) return false
+	if (n == 2) return true
+	if (n % 2 == 0) return false
+	for (m in 3..sqrt(n.toDouble()).toInt() step 2) {
+		if (n % m == 0) return false
+	}
+	return true
 }
 
 /**
@@ -38,13 +38,13 @@ fun isPrime(n: Int): Boolean {
  * Проверка числа на совершенность -- результат true, если число совершенное
  */
 fun isPerfect(n: Int): Boolean {
-    var sum = 1
-    for (m in 2..n / 2) {
-        if (n % m > 0) continue
-        sum += m
-        if (sum > n) break
-    }
-    return sum == n
+	var sum = 1
+	for (m in 2..n / 2) {
+		if (n % m > 0) continue
+		sum += m
+		if (sum > n) break
+	}
+	return sum == n
 }
 
 /**
@@ -53,11 +53,11 @@ fun isPerfect(n: Int): Boolean {
  * Найти число вхождений цифры m в число n
  */
 fun digitCountInNumber(n: Int, m: Int): Int =
-    when {
-        n == m -> 1
-        n < 10 -> 0
-        else -> digitCountInNumber(n / 10, m) + digitCountInNumber(n % 10, m)
-    }
+	when {
+		n == m -> 1
+		n < 10 -> 0
+		else -> digitCountInNumber(n / 10, m) + digitCountInNumber(n % 10, m)
+	}
 
 /**
  * Простая
@@ -67,7 +67,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+	var tmp = n
+	var ret = 0
+	do {
+		tmp /= 10
+		ret++
+	} while (tmp > 0)
+	return ret
+}
 
 /**
  * Простая
@@ -75,7 +83,21 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+	var first = 0
+	var second = 0
+	var tmp = 1
+
+	if (n == 1)
+		return 1
+	for (i in 0..n) {
+		first += second
+		second = tmp
+		tmp = first
+
+	}
+	return first
+}
 
 /**
  * Простая
@@ -133,7 +155,19 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+	var ret = 0
+	var x_copy = x
+
+	while (x_copy != 1) {
+		if (x_copy % 2 == 0) {
+			x_copy /= 2
+		} else
+			x_copy = 3 * x_copy + 1
+		ret++
+	}
+	return ret
+}
 
 /**
  * Средняя
@@ -175,7 +209,25 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+	var num = n
+	var tmp: Int
+	var size: Int
+
+	while (num > 9) {
+		tmp = num
+		size = 10
+		while (num > 100) {
+			num /= 10
+			size *= 10
+		}
+		num = tmp
+		if (num % 10 == num / size) {
+			num = (num % size) / 10
+		} else return false
+	}
+	return true
+}
 
 /**
  * Средняя
@@ -207,4 +259,29 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+	var tmp: Int
+	var base: Long = 10
+	var ret: Long = 0
+
+	for (i in 1..n) {
+		tmp = fib(i)
+		if (tmp > base)
+			base *= 10
+		ret *= base
+		ret += tmp
+		ret = ret shr 2
+	}
+	ret /= 10
+
+
+	return (ret % 10).toInt()
+}
+
+
+fun main() {
+
+	println(fibSequenceDigit(9))
+//	println(fibSequenceDigit(2))
+//	println(fibSequenceDigit(14))
+}
