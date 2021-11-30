@@ -63,9 +63,9 @@ class Graph {
         if (start == finish) 0
         else {
             val min = start.neighbors
-                .filter { it !in visited }
-                .mapNotNull { dfs(it, finish, visited + start) }
-                .min()
+	            .filter { it !in visited }
+	            .mapNotNull { dfs(it, finish, visited + start) }
+	            .minOrNull()
             if (min == null) null else min + 1
         }
 }

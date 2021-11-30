@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.util.*
 import kotlin.math.sqrt
 
 /**
@@ -11,15 +12,15 @@ import kotlin.math.sqrt
  * Найти все корни уравнения x^2 = y
  */
 fun sqRoots(y: Double) =
-    when {
-        y < 0 -> listOf()
-        y == 0.0 -> listOf(0.0)
-        else -> {
-            val root = sqrt(y)
-            // Результат!
-            listOf(-root, root)
-        }
-    }
+	when {
+		y < 0 -> listOf()
+		y == 0.0 -> listOf(0.0)
+		else -> {
+			val root = sqrt(y)
+			// Результат!
+			listOf(-root, root)
+		}
+	}
 
 /**
  * Пример
@@ -28,16 +29,16 @@ fun sqRoots(y: Double) =
  * Вернуть список корней (пустой, если корней нет)
  */
 fun biRoots(a: Double, b: Double, c: Double): List<Double> {
-    if (a == 0.0) {
-        return if (b == 0.0) listOf()
-        else sqRoots(-c / b)
-    }
-    val d = discriminant(a, b, c)
-    if (d < 0.0) return listOf()
-    if (d == 0.0) return sqRoots(-b / (2 * a))
-    val y1 = (-b + sqrt(d)) / (2 * a)
-    val y2 = (-b - sqrt(d)) / (2 * a)
-    return sqRoots(y1) + sqRoots(y2)
+	if (a == 0.0) {
+		return if (b == 0.0) listOf()
+		else sqRoots(-c / b)
+	}
+	val d = discriminant(a, b, c)
+	if (d < 0.0) return listOf()
+	if (d == 0.0) return sqRoots(-b / (2 * a))
+	val y1 = (-b + sqrt(d)) / (2 * a)
+	val y2 = (-b - sqrt(d)) / (2 * a)
+	return sqRoots(y1) + sqRoots(y2)
 }
 
 /**
@@ -46,13 +47,13 @@ fun biRoots(a: Double, b: Double, c: Double): List<Double> {
  * Выделить в список отрицательные элементы из заданного списка
  */
 fun negativeList(list: List<Int>): List<Int> {
-    val result = mutableListOf<Int>()
-    for (element in list) {
-        if (element < 0) {
-            result.add(element)
-        }
-    }
-    return result
+	val result = mutableListOf<Int>()
+	for (element in list) {
+		if (element < 0) {
+			result.add(element)
+		}
+	}
+	return result
 }
 
 /**
@@ -61,12 +62,12 @@ fun negativeList(list: List<Int>): List<Int> {
  * Изменить знак для всех положительных элементов списка
  */
 fun invertPositives(list: MutableList<Int>) {
-    for (i in 0 until list.size) {
-        val element = list[i]
-        if (element > 0) {
-            list[i] = -element
-        }
-    }
+	for (i in 0 until list.size) {
+		val element = list[i]
+		if (element > 0) {
+			list[i] = -element
+		}
+	}
 }
 
 /**
@@ -93,11 +94,11 @@ fun squares(vararg array: Int) = squares(array.toList()).toTypedArray()
  * "А роза упала на лапу Азора" является палиндромом.
  */
 fun isPalindrome(str: String): Boolean {
-    val lowerCase = str.toLowerCase().filter { it != ' ' }
-    for (i in 0..lowerCase.length / 2) {
-        if (lowerCase[i] != lowerCase[lowerCase.length - i - 1]) return false
-    }
-    return true
+	val lowerCase = str.toLowerCase().filter { it != ' ' }
+	for (i in 0..lowerCase.length / 2) {
+		if (lowerCase[i] != lowerCase[lowerCase.length - i - 1]) return false
+	}
+	return true
 }
 
 /**
@@ -163,7 +164,11 @@ fun polynom(p: List<Int>, x: Int): Int = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): MutableList<Int> = TODO()
+fun accumulate(list: MutableList<Int>): MutableList<Int> {
+	for (it in 1 until list.size)
+		list[it] += list[it - 1]
+	return list
+}
 
 /**
  * Средняя
@@ -190,7 +195,16 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+	val retList: LinkedList<Int> = LinkedList()
+	var tmp = n
+
+	while (tmp > 0) {
+		retList.push(tmp % base)
+		tmp /= base
+	}
+	return retList
+}
 
 /**
  * Сложная
@@ -238,6 +252,7 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  */
 fun roman(n: Int): String = TODO()
 
+
 /**
  * Очень сложная
  *
@@ -245,4 +260,40 @@ fun roman(n: Int): String = TODO()
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+	val list = listOf(
+		"ноль",
+		"один",
+		"два",
+		"три",
+		"четыр",
+		"пят",
+		"шест",
+		"сем",
+		"восем",
+		"девят",
+		"десять"
+	)
+	val listEnds = listOf("дцать", "надцать", "ь", "е")
+	if (n > 10 && n < 20) {
+		if (n == 12)
+			println("две" + listEnds[1])
+		else
+			println(list[n % 10] + listEnds[1]) // 11 - 20
+	} else if (n > 19) {
+		println(list[n / 10] + listEnds[0])
+	} else if (n < 10 && n > 4) {
+		println(list[n] + listEnds[2])
+	} else if (n == 4)
+		println(list[n] + listEnds[3])
+	else {
+		println(list[n])
+	}
+	return "1"
+}
+
+
+fun main() {
+
+convert(250, 14)
+}
